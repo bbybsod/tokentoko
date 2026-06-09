@@ -64,7 +64,7 @@ select,input{
            <option>BA STICKER</option>
     </select>
 
-    <select>
+    <select id="kode toko">
         <option>TMF8</option>
         <option>TL7F</option>
         <option>TOES</option>
@@ -77,6 +77,8 @@ select,input{
         <option>TWJ5</option>
         <option>FUQR</option>
     </select>
+    <input type="email" id="email">
+    <select id="kodeToko" onchange="updateEmail()"></select>
 
     <input type="date" id="tanggal">
 
@@ -97,6 +99,16 @@ select,input{
 </div>
 
 <script>
+
+    function updateEmail() {
+    const kode = document.getElementById("kodeToko").value;
+
+    document.getElementById("email").value =
+        `idm${kode.toLowerCase()}@smd.indomaret.co.id`;
+}
+
+// otomatis saat halaman dibuka
+updateEmail();
 
 function randomOTP(length = 32){
     const chars =
