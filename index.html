@@ -137,6 +137,15 @@ body{
             <input type="password" id="password">
         </div>
 
+        <div class="captcha-box">
+
+            <div class="captcha-title">
+                CAPTCHA
+            </div>
+
+            <div class="captcha-img" id="captcha">
+              </button>
+
         <script>
         function login() {
 
@@ -146,7 +155,7 @@ body{
                 if(username === "admin" && password === "12345"){
 
                  if(!checkCaptcha()){
-                     alert("Captcha salah!");
+                 alert("Captcha salah!");
             return;
         }
 
