@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800 p-8">
+
+<h1 class="text-2xl font-semibold mb-6">Server Monitoring</h1>
+
+<div class="grid grid-cols-3 gap-6 mb-8">
+
+    <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">CPU</p>
+        <p id="cpu" class="text-2xl font-bold">0%</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">RAM</p>
+        <p id="ram" class="text-2xl font-bold">0%</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">Disk</p>
+        <p id="disk" class="text-2xl font-bold">0%</p>
+    </div>
+
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow">
+    <canvas id="chart"></canvas>
+</div>
+
+<script>
+const dataChart = {
+    labels: [],
+    datasets: [
+        { label: 'CPU', data: [], borderWidth: 2 },
+        { label: 'RAM', data: [], borderWidth: 2 }
+    ]
+};
+
+const chart = new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: dataChart
+});
+
+async function update() {
+    const res = await fetch('/stats');
+    const data = await res.json();
+
+    document.getElementById('cpu').innerText = data.cpu + "%";
+    document.getElementById('ram').innerText = data.ram + "%";
+    document.getElementById('disk').innerText = data.disk + "%";
+
+    dataChart.labels.push(data.time);
+    dataChart.datasets[0].data.push(data.cpu);
+    dataChart.datasets[1].data.push(data.ram);
+
+    if(dataChart.labels.length > 15){
+        dataChart.labels.shift();
+        dataChart.datasets.forEach(d => d.data.shift());
+    }
+
+    chart.update();
+}
+
+// load history awal
+async function loadHistory() {
+    const res = await fetch('/history');
+    const data = await res.json();
+
+    data.forEach(row => {
+        dataChart.labels.push(row[0]);
+        dataChart.datasets[0].data.push(row[1]);
+        dataChart.datasets[1].data.push(row[2]);
+    });
+
+    chart.update();
+}
+
+loadHistory();
+setInterval(update, 2000);
+</script>
+
+</body>
+</html>

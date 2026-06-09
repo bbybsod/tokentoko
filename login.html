@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>tokentoko.indomaret.co.id</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#0d2346;
+    font-family:Arial, sans-serif;
+}
+
+.wrapper{
+    width:900px;
+    margin:50px auto;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:80px;
+}
+
+.logo{
+    height:70px;
+}
+
+.slogan{
+    background:#ffffff;
+    color:rgb(0, 0, 0);
+    padding:3px 10px;
+    font-size:14px;
+}
+
+.login-area{
+    width:420px;
+}
+
+.form-row{
+    display:flex;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.form-row label{
+    width:90px;
+    color:#66ffff;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.form-row input{
+    width:180px;
+    height:24px;
+    border:none;
+    border-radius:3px;
+}
+
+.captcha-box{
+    margin-left:90px;
+    width:155px;
+    background:white;
+    border:1px solid #666;
+}
+
+.captcha-title{
+    background:#12345f;
+    color:white;
+    font-size:10px;
+    padding:2px 5px;
+}
+
+.captcha-img{
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:3px;
+    color:#6a6abf;
+}
+
+.captcha-input{
+    width:100%;
+    box-sizing:border-box;
+    height:25px;
+}
+
+.btn-area{
+    margin-left:90px;
+    margin-top:10px;
+}
+
+.btn{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    width:70px;
+    height:32px;
+    border-radius:4px;
+    cursor:pointer;
+    margin-right:20px;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="header">
+        <img class="logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Logo_Indomaret.png">
+
+        <div class="slogan">
+            UNGGUL DENGAN DUTA PELAYANAN YANG RELEVAN
+        </div>
+    </div>
+
+    <div class="login-area">
+
+        <div class="form-row">
+            <label>User Name</label>
+            <input type="text" id="username">
+        </div>
+
+        <div class="form-row">
+            <label>Password</label>
+            <input type="password" id="password">
+        </div>
+
+        <div class="captcha-box">
+
+            <div class="captcha-title">
+                CAPTCHA
+            </div>
+
+            <div class="captcha-img" id="captcha">
+                CDFRDAE
+            </div>
+
+            <input
+                class="captcha-input"
+                type="text"
+                id="captchaInput">
+
+        </div>
+
+        <div class="btn-area">
+            <button class="btn" onclick="login()">
+                Login
+            </button>
+
+            <button class="btn" onclick="resetForm()">
+                Cancel
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const captchaText =
+document.getElementById("captcha").innerText;
+
+function login(){
+
+    const captchaUser =
+    document.getElementById("captchaInput").value;
+
+    if(captchaUser !== captchaText){
+
+        alert("Captcha salah");
+        return;
+    }
+
+    window.location.href = "bap.html";
+}
+
+function resetForm(){
+
+    document.getElementById("username").value="";
+    document.getElementById("password").value="";
+    document.getElementById("captchaInput").value="";
+}
+
+</script>
+
+</body>
+</html>
